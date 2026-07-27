@@ -54,10 +54,26 @@ st.markdown("""
     --mono: 'JetBrains Mono', monospace;
 }
 
-.stApp {
-    background: var(--bg);
+html, body, .stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
+    background: var(--bg) !important;
+    color: var(--text-primary) !important;
     font-family: 'Inter', sans-serif;
 }
+
+/* GLOBAL SAFETY NET — forces readable text color on anything not
+   explicitly restyled below, regardless of Streamlit version/internal
+   class names. This is what fixes "dark text on dark background". */
+.stApp p, .stApp span, .stApp div, .stApp label,
+.stApp h1, .stApp h2, .stApp h3, .stApp h4, .stApp h5, .stApp h6,
+.stMarkdown, .stMarkdown p, .stMarkdown li,
+[data-testid="stWidgetLabel"] p,
+[data-testid="stMarkdownContainer"] p,
+[data-testid="stMarkdownContainer"] h1,
+[data-testid="stMarkdownContainer"] h2,
+[data-testid="stMarkdownContainer"] h3 {
+    color: var(--text-primary) !important;
+}
+
 #MainMenu, footer, header { visibility: hidden; }
 .block-container { padding-top: 2rem; padding-bottom: 3rem; max-width: 1220px; }
 
