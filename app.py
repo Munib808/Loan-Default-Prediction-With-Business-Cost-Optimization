@@ -173,6 +173,37 @@ div[data-baseweb="input"]:focus-within {
     box-shadow: 0 0 0 1px var(--accent) !important;
 }
 
+/* ─── KILL BROWSER AUTOFILL STYLING ───
+   Chrome/Edge/Safari force a light background + dark text on any
+   <input> they judge autofillable (age, income, amount, etc.), and
+   background-color CANNOT override this once it kicks in — only a
+   huge inset box-shadow can visually "paint over" it. This is why
+   the selects looked fine (not autofill targets) but every number
+   and text input stayed light/unreadable. */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px var(--panel) inset !important;
+    box-shadow: 0 0 0 1000px var(--panel) inset !important;
+    -webkit-text-fill-color: var(--text-primary) !important;
+    caret-color: var(--text-primary) !important;
+    transition: background-color 9999s ease-in-out 0s !important;
+}
+
+/* Belt-and-suspenders: re-assert backgrounds at higher specificity
+   in case Streamlit's stylesheet loads after ours in the DOM. */
+div[data-testid="stNumberInput"] div[data-baseweb="base-input"],
+div[data-testid="stTextInput"] div[data-baseweb="base-input"] {
+    background-color: var(--panel) !important;
+}
+div[data-testid="stNumberInput"] input,
+div[data-testid="stTextInput"] input {
+    background-color: transparent !important;
+    color: var(--text-primary) !important;
+    -webkit-text-fill-color: var(--text-primary) !important;
+}
+
 /* Number input +/- stepper buttons */
 button[data-testid="stNumberInputStepUp"],
 button[data-testid="stNumberInputStepDown"] {
