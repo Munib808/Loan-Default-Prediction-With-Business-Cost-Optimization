@@ -41,16 +41,16 @@ st.markdown("""
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
-    --bg: #060B0A;
-    --panel: #0D1512;
-    --panel-border: rgba(94, 234, 212, 0.14);
-    --accent: #10B981;
-    --accent-bright: #34D399;
-    --accent-soft: rgba(16, 185, 129, 0.12);
-    --danger: #F43F5E;
-    --text-primary: #F1F5F4;
-    --text-secondary: #9CA9A5;
-    --text-muted: #6B7A76;
+    --bg: #F7F9F8;
+    --panel: #FFFFFF;
+    --panel-border: rgba(15, 23, 42, 0.12);
+    --accent: #059669;
+    --accent-bright: #047857;
+    --accent-soft: rgba(5, 150, 105, 0.10);
+    --danger: #E11D48;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #94A3B8;
     --mono: 'JetBrains Mono', monospace;
 }
 
@@ -83,8 +83,8 @@ html, body, .stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
     background:
-        radial-gradient(circle at 8% 8%, rgba(16, 185, 129, 0.09) 0%, transparent 42%),
-        radial-gradient(circle at 92% 85%, rgba(52, 211, 153, 0.06) 0%, transparent 42%);
+        radial-gradient(circle at 8% 8%, rgba(5, 150, 105, 0.06) 0%, transparent 42%),
+        radial-gradient(circle at 92% 85%, rgba(4, 120, 87, 0.04) 0%, transparent 42%);
     z-index: -1;
 }
 
@@ -126,13 +126,12 @@ html, body, .stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
 
 /* ─── GLASS CARDS ─── */
 div[data-testid="stVerticalBlock"] > div:has(div.card-glow) {
-    background: linear-gradient(180deg, rgba(16,26,22,0.75), rgba(8,14,12,0.75));
-    backdrop-filter: blur(14px);
+    background: #FFFFFF;
     border: 1px solid var(--panel-border);
     border-radius: 20px;
     padding: 2rem 2.2rem 1.6rem 2.2rem;
     margin-bottom: 1.6rem;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
 }
 
 /* ─── LABELS (this is what was invisible before) ─── */
@@ -152,7 +151,7 @@ label p { color: var(--text-secondary) !important; }
    These attribute selectors are stable across Streamlit versions. */
 div[data-baseweb="base-input"],
 div[data-baseweb="input"] {
-    background-color: var(--panel) !important;
+    background-color: #F1F5F4 !important;
     border: 1px solid var(--panel-border) !important;
     border-radius: 10px !important;
 }
@@ -164,6 +163,7 @@ div[data-baseweb="input"] input,
     -webkit-text-fill-color: var(--text-primary) !important;
     font-family: var(--mono) !important;
     font-size: 0.95rem !important;
+    font-weight: 500 !important;
     padding: 0.55rem 0.8rem !important;
     border: none !important;
 }
@@ -173,41 +173,10 @@ div[data-baseweb="input"]:focus-within {
     box-shadow: 0 0 0 1px var(--accent) !important;
 }
 
-/* ─── KILL BROWSER AUTOFILL STYLING ───
-   Chrome/Edge/Safari force a light background + dark text on any
-   <input> they judge autofillable (age, income, amount, etc.), and
-   background-color CANNOT override this once it kicks in — only a
-   huge inset box-shadow can visually "paint over" it. This is why
-   the selects looked fine (not autofill targets) but every number
-   and text input stayed light/unreadable. */
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 1000px var(--panel) inset !important;
-    box-shadow: 0 0 0 1000px var(--panel) inset !important;
-    -webkit-text-fill-color: var(--text-primary) !important;
-    caret-color: var(--text-primary) !important;
-    transition: background-color 9999s ease-in-out 0s !important;
-}
-
-/* Belt-and-suspenders: re-assert backgrounds at higher specificity
-   in case Streamlit's stylesheet loads after ours in the DOM. */
-div[data-testid="stNumberInput"] div[data-baseweb="base-input"],
-div[data-testid="stTextInput"] div[data-baseweb="base-input"] {
-    background-color: var(--panel) !important;
-}
-div[data-testid="stNumberInput"] input,
-div[data-testid="stTextInput"] input {
-    background-color: transparent !important;
-    color: var(--text-primary) !important;
-    -webkit-text-fill-color: var(--text-primary) !important;
-}
-
 /* Number input +/- stepper buttons */
 button[data-testid="stNumberInputStepUp"],
 button[data-testid="stNumberInputStepDown"] {
-    background-color: var(--panel) !important;
+    background-color: #F1F5F4 !important;
     border: 1px solid var(--panel-border) !important;
 }
 button[data-testid="stNumberInputStepUp"] svg,
@@ -219,7 +188,7 @@ button[data-testid="stNumberInputStepDown"] svg,
 /* ─── SELECTBOX (closed state) ───
    Same BaseWeb wrapper issue applies here. */
 div[data-baseweb="select"] > div {
-    background-color: var(--panel) !important;
+    background-color: #F1F5F4 !important;
     border: 1px solid var(--panel-border) !important;
     border-radius: 10px !important;
     color: var(--text-primary) !important;
@@ -232,12 +201,12 @@ div[data-baseweb="select"] div {
 }
 .stSelectbox svg { fill: var(--text-secondary) !important; }
 
-/* ─── SELECTBOX DROPDOWN MENU (this was invisible: dark text on dark bg) ─── */
+/* ─── SELECTBOX DROPDOWN MENU ─── */
 ul[data-baseweb="menu"], div[data-baseweb="popover"] li {
-    background-color: #0D1512 !important;
+    background-color: #FFFFFF !important;
 }
 li[role="option"] {
-    background-color: #0D1512 !important;
+    background-color: #FFFFFF !important;
     color: var(--text-primary) !important;
     font-family: var(--mono) !important;
     font-size: 0.9rem !important;
@@ -350,28 +319,28 @@ def build_result_html(prob, prediction, thresh):
     icon = "🛡️" if is_safe else "⚠️"
 
     return f"""
-    <div style="font-family:'Inter',sans-serif; background:rgba(255,255,255,0.02); border:1px solid {color}55; border-radius:18px; padding:2rem; color:#F1F5F4; animation:fadeIn 0.6s ease-out;">
+    <div style="font-family:'Inter',sans-serif; background:#FFFFFF; border:1px solid {color}55; border-radius:18px; padding:2rem; color:#0F172A; animation:fadeIn 0.6s ease-out;">
         <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:1.8rem; flex-wrap:wrap; gap:1rem;">
             <div>
-                <div style="font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:#9CA9A5; text-transform:uppercase; letter-spacing:0.12em; margin-bottom:0.3rem;">Decision Status</div>
+                <div style="font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:#475569; text-transform:uppercase; letter-spacing:0.12em; margin-bottom:0.3rem;">Decision Status</div>
                 <div style="font-size:1.7rem; font-weight:700; color:{color};">{icon} {status}</div>
             </div>
             <div style="text-align:right;">
-                <div style="font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:#9CA9A5; text-transform:uppercase; letter-spacing:0.12em; margin-bottom:0.3rem;">Model Confidence</div>
-                <div style="font-size:1.7rem; font-weight:700; color:#F1F5F4;">{100 - (abs(prob-thresh)*100):.1f}%</div>
+                <div style="font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:#475569; text-transform:uppercase; letter-spacing:0.12em; margin-bottom:0.3rem;">Model Confidence</div>
+                <div style="font-size:1.7rem; font-weight:700; color:#0F172A;">{100 - (abs(prob-thresh)*100):.1f}%</div>
             </div>
         </div>
 
-        <div style="background:rgba(0,0,0,0.3); height:10px; border-radius:8px; width:100%; margin-bottom:0.8rem; position:relative; overflow:hidden;">
+        <div style="background:rgba(15,23,42,0.08); height:10px; border-radius:8px; width:100%; margin-bottom:0.8rem; position:relative; overflow:hidden;">
             <div style="background:{color}; width:{prob*100}%; height:100%; border-radius:8px; transition:1s width ease-in-out;"></div>
         </div>
-        <div style="display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:#6B7A76;">
+        <div style="display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:#94A3B8;">
             <span>Probability of Default: {prob:.2%}</span>
             <span>Decision Threshold: {thresh:.2f}</span>
         </div>
 
-        <div style="margin-top:1.8rem; padding-top:1.4rem; border-top:1px solid rgba(255,255,255,0.06); font-size:0.88rem; line-height:1.6; color:#CBD5E1;">
-            <b style="color:#F1F5F4;">Model Summary:</b>
+        <div style="margin-top:1.8rem; padding-top:1.4rem; border-top:1px solid rgba(15,23,42,0.08); font-size:0.88rem; line-height:1.6; color:#334155;">
+            <b style="color:#0F172A;">Model Summary:</b>
             {"The applicant demonstrates strong fiscal stability with a risk profile within acceptable institutional bounds." if is_safe else "The analysis identifies elevated risk markers in the debt-to-income ratio or credit history. Manual review recommended."}
         </div>
     </div>
