@@ -144,36 +144,60 @@ label, .stNumberInput label, .stSelectbox label, .stTextInput label {
 }
 label p { color: var(--text-secondary) !important; }
 
-/* ─── INPUT FIELDS ─── */
-.stNumberInput input, .stTextInput input {
-    background-color: rgba(255,255,255,0.03) !important;
+/* ─── INPUT FIELDS ───
+   Streamlit paints the visible box via the BaseWeb wrapper
+   (div[data-baseweb="base-input"] / [data-baseweb="input"]), not the
+   bare <input> tag. Styling only the <input> leaves a light wrapper
+   showing through behind light-colored text = invisible values.
+   These attribute selectors are stable across Streamlit versions. */
+div[data-baseweb="base-input"],
+div[data-baseweb="input"] {
+    background-color: var(--panel) !important;
     border: 1px solid var(--panel-border) !important;
     border-radius: 10px !important;
+}
+div[data-baseweb="base-input"] input,
+div[data-baseweb="input"] input,
+.stNumberInput input, .stTextInput input {
+    background-color: transparent !important;
     color: var(--text-primary) !important;
+    -webkit-text-fill-color: var(--text-primary) !important;
     font-family: var(--mono) !important;
     font-size: 0.95rem !important;
     padding: 0.55rem 0.8rem !important;
+    border: none !important;
 }
-.stNumberInput input:focus, .stTextInput input:focus {
+div[data-baseweb="base-input"]:focus-within,
+div[data-baseweb="input"]:focus-within {
     border-color: var(--accent) !important;
     box-shadow: 0 0 0 1px var(--accent) !important;
 }
-.stNumberInput button {
-    background-color: rgba(255,255,255,0.03) !important;
-    border-color: var(--panel-border) !important;
-}
-.stNumberInput svg { fill: var(--text-secondary) !important; }
 
-/* ─── SELECTBOX (closed state) ─── */
-.stSelectbox div[data-baseweb="select"] > div {
-    background-color: rgba(255,255,255,0.03) !important;
+/* Number input +/- stepper buttons */
+button[data-testid="stNumberInputStepUp"],
+button[data-testid="stNumberInputStepDown"] {
+    background-color: var(--panel) !important;
+    border: 1px solid var(--panel-border) !important;
+}
+button[data-testid="stNumberInputStepUp"] svg,
+button[data-testid="stNumberInputStepDown"] svg,
+.stNumberInput svg {
+    fill: var(--text-secondary) !important;
+}
+
+/* ─── SELECTBOX (closed state) ───
+   Same BaseWeb wrapper issue applies here. */
+div[data-baseweb="select"] > div {
+    background-color: var(--panel) !important;
     border: 1px solid var(--panel-border) !important;
     border-radius: 10px !important;
     color: var(--text-primary) !important;
 }
-.stSelectbox div[data-baseweb="select"] span {
+div[data-baseweb="select"] span,
+div[data-baseweb="select"] div {
     color: var(--text-primary) !important;
     font-family: var(--mono) !important;
+    background-color: transparent !important;
 }
 .stSelectbox svg { fill: var(--text-secondary) !important; }
 
